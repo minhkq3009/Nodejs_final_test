@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>Product Management</title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Danh sách sản phẩm</h1>
+    <a href="#addProductForm" class="btn btn-primary mb-3" data-toggle="collapse">Thêm sản phẩm</a>
+    
+    <div id="addProductForm" class="collapse">
+      <h2 class="mt-4">Thêm sản phẩm</h2>
+      <form action="/products" method="POST">
+        <div class="form-group">
+          <label for="ProductCode">Mã sản phẩm</label>
+          <input type="text" class="form-control" id="ProductCode" name="ProductCode" required>
+        </div>
+        <div class="form-group">
+          <label for="ProductName">Tên sản phẩm</label>
+          <input type="text" class="form-control" id="ProductName" name="ProductName" required>
+        </div>
+        <div class="form-group">
+          <label for="ProductDate">Ngày sản xuất</label>
+          <input type="date" class="form-control" id="ProductDate" name="ProductDate" required>
+        </div>
+        <div class="form-group">
+          <label for="ProductOriginPrice">Giá gốc</label>
+          <input type="number" class="form-control" id="ProductOriginPrice" name="ProductOriginPrice" required>
+        </div>
+        <div class="form-group">
+          <label for="Quantity">Số lượng</label>
+          <input type="number" class="form-control" id="Quantity" name="Quantity" required>
+        </div>
+        <div class="form-group">
+          <label for="ProductStoreCode">Mã kho</label>
+          <input type="text" class="form-control" id="ProductStoreCode" name="ProductStoreCode" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+      </form>
+    </div>
+
+    <table class="table table-bordered mt-5">
+      <thead>
+        <tr>
+          <th>Mã sản phẩm</th>
+          <th>Tên sản phẩm</th>
+          <th>Ngày sản xuất</th>
+          <th>Giá gốc</th>
+          <th>Số lượng</th>
+          <th>Mã kho</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(product => { %>
+          <tr>
+            <td><%= product.ProductCode %></td>
+            <td><%= product.ProductName %></td>
+            <td><%= product.ProductDate.toDateString() %></td>
+            <td><%= product.ProductOriginPrice.toLocaleString() %></td>
+            <td><%= product.Quantity %></td>
+            <td><%= product.ProductStoreCode %></td>
+            <td>
+              <form action="/products/delete/<%= product._id %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
